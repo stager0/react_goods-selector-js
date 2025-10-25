@@ -18,6 +18,14 @@ export const goods = [
 export const App = () => {
   const [selectedGood, setSelected] = useState('Jam');
 
+  const handleGoodSelection = (goodDataset, currentGood) => {
+    if (goodDataset === 'RemoveButton') {
+      setSelected('');
+    } else {
+      setSelected(currentGood);
+    }
+  };
+
   return (
     <main className="section container">
       {selectedGood ? (
@@ -54,13 +62,9 @@ export const App = () => {
                     }
                     type="button"
                     className={`button ${selectedGood === good ? 'is-info' : ''}`}
-                    onClick={event => {
-                      if (event.currentTarget.dataset.cy === 'RemoveButton') {
-                        setSelected('');
-                      } else {
-                        setSelected(good);
-                      }
-                    }}
+                    onClick={event =>
+                      handleGoodSelection(event.currentTarget.dataset.cy, good)
+                    }
                   >
                     {selectedGood !== good ? '+' : '-'}
                   </button>
